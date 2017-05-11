@@ -13,7 +13,7 @@
         }];
 
         var tableSchema = {
-            id: "Riverside Crime Report",
+            id: "rivCrimeReport",
             alias: "Riverside Crime Report",
             columns: cols
         };
