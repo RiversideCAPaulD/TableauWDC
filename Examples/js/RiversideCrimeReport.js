@@ -30,8 +30,8 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "Place": feat[i].id,
-                    "Address": feat[i].properties.mag,
+                    "Place": feat[i].properties.Place,
+                    "Address": feat[i].properties.Address,
                     
                 });
             }
