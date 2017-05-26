@@ -4,17 +4,15 @@
 
     // Define the schema
     myConnector.getSchema = function(schemaCallback) {
-        var cols = [{
-            id: "Place",
-            dataType: tableau.dataTypeEnum.string
-        }, {
-            id: "Address",
-            dataType: tableau.dataTypeEnum.string
-        }];
+        var cols = [
+		{ id : "npc",  alias : "POC", dataType : tableau.dataTypeEnum.string }
+		];
+		
+		
 
         var tableSchema = {
-            id: "rivCrimeReport",
-            alias: "Riverside_Crime_Report",
+            id: "riversideCrime",
+            alias: "Riverside Crime JSON entries",
             columns: cols
         };
 
@@ -23,16 +21,18 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("http://riversideca.gov/transparency/data/dataset/jsonfull/27/Crime_Reports", function(resp) {
-            var feat = resp.features,
-                tableData = [];
+        $.getJSON("https://riversideca.gov/transparency/data/dataset/json/27")
+	    function(data) {
+            tableData = [];
+	   
 
             // Iterate over the JSON object
-            for (var i = 0, len = feat.length; i < len; i++) {
+            for (var i = 0; i < len; i++) {
                 tableData.push({
-                    "Place": feat[i].properties.Place,
-                    "Address": feat[i].properties.Address,
                     
+                    "npc": data[i]["npc"],
+					
+					                    
                 });
             }
 
@@ -46,7 +46,7 @@
     // Create event listeners for when the user submits the form
     $(document).ready(function() {
         $("#submitButton").click(function() {
-            tableau.connectionName = "Riverside_Crime"; //// This will be the data source name in Tableau
+            tableau.connectionName = "Riverside Crime Report"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });
     });
